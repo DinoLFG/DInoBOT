@@ -38,7 +38,7 @@ async function main(): Promise<void> {
   let chatId: string | undefined; // Define chatId as undefined initially
 
   // Listen for the "start" command
-  bot.onText(/\/start/, (msg) => {
+  bot.onText(/\/startDinoBot/, (msg) => {
     chatId = msg.chat.id;
     bot.sendMessage(chatId, "Hello! Your notification bot has been set up now!");
   });
@@ -86,8 +86,6 @@ async function main(): Promise<void> {
         else{
           tokenJackpotPoolResponse = tokenResponse
         }
-
-        console.log(tokenJackpotPoolResponse)
         let balance =  Number(tokenJackpotPoolResponse[0].balance)
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
@@ -175,8 +173,13 @@ async function main(): Promise<void> {
           "address": String(process.env.JACKPOT_CONTRACT)
         });
         let tokenResponse = response.jsonResponse
-        console.log(String(process.env.DINO_CONTRACT))
-        let tokenJackpotPoolResponse = tokenResponse.filter((x: { token_address: any; })=>x.token_address == String(process.env.DINO_CONTRACT))
+        let tokenJackpotPoolResponse: { balance: any; }[] = []
+        if(tokenResponse.length>1){
+           tokenJackpotPoolResponse = tokenResponse.filter((x: { token_address: any; })=>x.token_address == String(process.env.DINO_CONTRACT))
+        }
+        else{
+          tokenJackpotPoolResponse = tokenResponse
+        }
         let balance =  Number(tokenJackpotPoolResponse[0].balance)
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
         if(mysteryegg1.includes(Number(dinoPFPNumber))){
