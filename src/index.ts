@@ -169,7 +169,7 @@ async function main(): Promise<void> {
         }
         let rewardText = ""
         const response = await Moralis.EvmApi.token.getWalletTokenBalances({
-          "chain": "0x5",
+          "chain": EvmChain.ETHEREUM,
           "address": String(process.env.JACKPOT_CONTRACT)
         });
         let tokenResponse = response.jsonResponse
