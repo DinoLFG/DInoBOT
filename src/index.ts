@@ -47,7 +47,9 @@ async function main(): Promise<void> {
     {type: 'address', name: 'buyer'}, 
     {type: 'uint256', name: 'quantity'},
 ];
-
+  app.get("/",async (req,res)=>{
+        res.sendStatus(200);
+  })
   // Register handler for Alchemy Notify webhook events
   app.post("/eggVerter", async (req, res) => {
   
