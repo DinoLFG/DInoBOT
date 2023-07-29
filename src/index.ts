@@ -77,12 +77,21 @@ async function main(): Promise<void> {
           }
         const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         const response = await Moralis.EvmApi.token.getWalletTokenBalances({
-          "chain": "0x2",
+          "chain": EvmChain.ETHEREUM,
           "address": String(process.env.JACKPOT_CONTRACT)
         });
         let tokenResponse = response.jsonResponse
+        console.log(tokenResponse)
         console.log(String(process.env.DINO_CONTRACT))
-        let tokenJackpotPoolResponse = tokenResponse.filter((x: { token_address: any; })=>x.token_address == String(process.env.DINO_CONTRACT))
+        let tokenJackpotPoolResponse: { balance: any; }[] = []
+        if(tokenResponse.length>1){
+           tokenJackpotPoolResponse = tokenResponse.filter((x: { token_address: any; })=>x.token_address == String(process.env.DINO_CONTRACT))
+        }
+        else{
+          tokenJackpotPoolResponse = tokenResponse
+        }
+
+        console.log(tokenJackpotPoolResponse)
         let balance =  Number(tokenJackpotPoolResponse[0].balance)
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
