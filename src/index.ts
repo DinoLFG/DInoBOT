@@ -52,8 +52,6 @@ async function main(): Promise<void> {
   })
   // Register handler for Alchemy Notify webhook events
   app.post("/eggVerter", async (req, res) => {
-  
-    console.log("Im Working")
     const webhookEvent = req.body;
     const logs = webhookEvent.event.data.block.logs;
     if (logs.length === 0) {
