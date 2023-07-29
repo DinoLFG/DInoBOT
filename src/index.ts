@@ -81,8 +81,6 @@ async function main(): Promise<void> {
           "address": String(process.env.JACKPOT_CONTRACT)
         });
         let tokenResponse = response.jsonResponse
-        console.log(tokenResponse)
-        console.log(String(process.env.DINO_CONTRACT))
         let tokenJackpotPoolResponse: { balance: any; }[] = []
         if(tokenResponse.length>1){
            tokenJackpotPoolResponse = tokenResponse.filter((x: { token_address: any; })=>x.token_address == String(process.env.DINO_CONTRACT))
@@ -97,7 +95,7 @@ async function main(): Promise<void> {
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
         if (chatId) {
           bot.sendVideo(chatId,"src/IMG_7560.MP4",{
-            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄\n\n*Swapped* ${Number(decodedParameters.quantity)*2000} $DINO🔄🦖🥚
+            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄\n\n*Swapped* ${Number(decodedParameters.quantity)*1000} $DINO🔄🦖🥚
             \n${eggText}\n🏆Total $DINO Jackpot🏆\n            ${balanceReformated} $DINO\n\n[TX](${buyerData})\\|[Buyer](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
           })
