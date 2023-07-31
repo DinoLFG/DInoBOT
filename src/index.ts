@@ -52,6 +52,7 @@ async function main(): Promise<void> {
   })
   // Register handler for Alchemy Notify webhook events
   app.post("/eggVerter", async (req, res) => {
+    console.log("Verter",Date.now())
     const webhookEvent = req.body;
     const logs = webhookEvent.event.data.block.logs;
     if (logs.length === 0) {
@@ -91,7 +92,7 @@ async function main(): Promise<void> {
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
         if (chatId) {
           bot.sendVideo(chatId,"src/IMG_7560.MP4",{
-            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄\n\n*Swapped* ${Number(decodedParameters.quantity)*1000} $DINO🔄🦖🥚
+            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Swapped* ${Number(decodedParameters.quantity)*1000} $DINO🔄🦖🥚
             \n${eggText}\n🏆Total $DINO Jackpot🏆\n            ${balanceReformated} $DINO\n\n[TX](${buyerData})\\|[Buyer](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
           })
@@ -134,11 +135,10 @@ async function main(): Promise<void> {
 
 
   app.post("/eggHatch", async (req, res) => {
-    console.log
+    console.log("Hatch",Date.now())
     const webhookEvent = req.body;
     const logs = webhookEvent.event.data.block.logs;
     if (logs.length === 0) {
-      console.log("Empty logs array received, skipping");
     } else {
       for (let i = 0; i < logs.length; i++) {
         let receipt = await alchemy.core.getTransactionReceipt(logs[i].transaction.hash)
@@ -216,7 +216,7 @@ async function main(): Promise<void> {
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
         if (chatId) {
           bot.sendPhoto(chatId,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
-            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
+            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
             \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
 
