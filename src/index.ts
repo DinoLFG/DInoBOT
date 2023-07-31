@@ -52,13 +52,12 @@ async function main(): Promise<void> {
   })
   // Register handler for Alchemy Notify webhook events
   app.post("/eggVerter", async (req, res) => {
-    console.log("Verter",Date.now())
     const webhookEvent = req.body;
     const logs = webhookEvent.event.data.block.logs;
     if (logs.length === 0) {
-      console.log("Empty logs array received, skipping");
     } else {
       for (let i = 0; i < logs.length; i++) {
+        console.log("Verter",Date.now())
         let receipt = await alchemy.core.getTransactionReceipt(logs[i].transaction.hash)
         let filteredRecepit = receipt?.logs.filter(x=>x.topics[3]) ?? []
         let filteredRecepitLength = filteredRecepit?.length ?? 0;
@@ -135,12 +134,12 @@ async function main(): Promise<void> {
 
 
   app.post("/eggHatch", async (req, res) => {
-    console.log("Hatch",Date.now())
     const webhookEvent = req.body;
     const logs = webhookEvent.event.data.block.logs;
     if (logs.length === 0) {
     } else {
       for (let i = 0; i < logs.length; i++) {
+        console.log("Hatch",Date.now())
         let receipt = await alchemy.core.getTransactionReceipt(logs[i].transaction.hash)
         let filteredRecepit = receipt?.logs.filter(x=>x.topics[3]) ?? []
         let dinoEgg = `${parseInt(filteredRecepit[0].topics[3],16)}`
