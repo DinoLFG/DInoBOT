@@ -27,16 +27,17 @@ async function main(): Promise<void> {
   runApp()
   const app = express();
 
-  const port = "8080";
+  const port = process.env.PORT || 3000;
   // Parse the request body as JSON
   app.use(bodyParser.json());
-
   // Create a TelegramBot instance with your bot token
   const botToken = String(process.env.BOT);
   const bot = new TelegramBot(botToken, { polling: true });
 
   let chatId: string | undefined; // Define chatId as undefined initially
-
+  app.listen(port, "0.0.0.0", function () {
+    console.log(`Example Alchemy Notify app listening at ${port}`);
+  });
   // Listen for the "start" command
   bot.onText(/\/startDinoBot/, (msg) => {
     chatId = msg.chat.id;
@@ -227,8 +228,5 @@ async function main(): Promise<void> {
   });
 
   // Listen to Alchemy Notify webhook events
-  app.listen(port, () => {
-    console.log(`Example Alchemy Notify app listening at ${port}`);
-  });
 }
 main();
