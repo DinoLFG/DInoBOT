@@ -180,31 +180,41 @@ async function main(): Promise<void> {
         }
         let balance =  Number(tokenJackpotPoolResponse[0].balance)
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
+        let reward = 0;
         if(mysteryegg1.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x Dino Mystery Egg*"
         }
         else if(hoodie.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x DinoLFG Hoodie*"
         }
         else if(nft.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x DINOsaur NFT*"
         }
         else if(k50.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*50,000 $DINO \\+ 10 Dino Mystery Eggs \\+ 1x DinoLFG Hoodie*"
         }
         else if(ps5.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x PS5 or 1x Nintendo Switch*"
         }
         else if(iphone.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x iPhone 14*"
         }
         else if(doge.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*1x Signed Dogecoin by Dogecoin creator Billy Markus*"
         }
         else if(k500.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= "*500,000 $DINO \\+ 100 Dino Mystery Eggs \\+ 1x DinoLFG Hoodie*"
         }
         else if(jackPot.includes(Number(dinoPFPNumber))){
+          reward =1
           rewardText+= `💸💸💸💸💸💸💸💸💸💸💸💸💸\n                *You won ${balanceReformated} $DINO*\n💸💸💸💸💸💸💸💸💸💸💸💸💸`
         }
         else{
@@ -212,12 +222,21 @@ async function main(): Promise<void> {
         }
         const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
+        if(reward==1){
           bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
             \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
 
           }) 
+        }
+        else{
+              bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
+            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n\n${rewardText}\n
+            \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
+            parse_mode: 'MarkdownV2'
+          }) 
+        }
     }
     }
     res.sendStatus(200);
