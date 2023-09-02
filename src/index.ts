@@ -38,7 +38,6 @@ async function main(): Promise<void> {
     console.log(`Example Alchemy Notify app listening at ${port}`);
   });
   // Listen for the "start" command
-  bot.sendMessage(-1001883928989, "I got restarted");
   bot.onText(/\/startDinoBot/, (msg) => {
     chatId = msg.chat.id;
     bot.sendMessage(chatId, "Hello! Your notification bot has been set up now!");
