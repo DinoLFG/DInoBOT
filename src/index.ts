@@ -41,6 +41,7 @@ async function main(): Promise<void> {
   // Listen for the "start" command
   bot.onText(/\/startDinoBot/, (msg) => {
     chatId = msg.chat.id;
+    console.log(chatId)
     bot.sendMessage(chatId, "Hello! Your notification bot has been set up now!");
   });
   //TYPES
