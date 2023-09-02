@@ -218,10 +218,13 @@ async function main(): Promise<void> {
           rewardText+= `💸💸💸💸💸💸💸💸💸💸💸💸💸\n                *You won ${balanceReformated} $DINO*\n💸💸💸💸💸💸💸💸💸💸💸💸💸`
         }
         else{
+          reward = 0
           rewardText+= "*No reward try next time \\!*"
         }
         const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
+        console.log(reward)
+        console.log(reward==1)
         if(reward==1){
           bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
