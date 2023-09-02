@@ -218,7 +218,7 @@ async function main(): Promise<void> {
         }
         else{
           reward = 0
-          rewardText+= "*No reward try next time \\!*"
+          rewardText+= ""
         }
         const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
