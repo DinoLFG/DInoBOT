@@ -33,17 +33,14 @@ async function main(): Promise<void> {
   // Create a TelegramBot instance with your bot token
   const botToken = String(process.env.BOT);
   const bot = new TelegramBot(botToken, { polling: true });
-
   let chatId: string | undefined; // Define chatId as undefined initially
   app.listen(port, "0.0.0.0", function () {
     console.log(`Example Alchemy Notify app listening at ${port}`);
   });
   // Listen for the "start" command
   bot.sendMessage(-1001883928989, "I got restarted");
-  console.log("I got restarted")
   bot.onText(/\/startDinoBot/, (msg) => {
     chatId = msg.chat.id;
-    console.log(chatId)
     bot.sendMessage(chatId, "Hello! Your notification bot has been set up now!");
   });
   //TYPES
@@ -93,13 +90,11 @@ async function main(): Promise<void> {
         let balance =  Number(tokenJackpotPoolResponse[0].balance)
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
         let balanceReformated = `${(balance/Math.pow(10,18)).toLocaleString("en-US")}`
-        if (chatId) {
-          bot.sendVideo(chatId,"src/IMG_7560.MP4",{
+          bot.sendVideo(-1001883928989,"src/IMG_7560.MP4",{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Swapped* ${Number(decodedParameters.quantity)*1000} $DINO🔄🦖🥚
             \n${eggText}\n🏆Total $DINO Jackpot🏆\n            ${balanceReformated} $DINO\n\n[TX](${buyerData})\\|[Buyer](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
           })
-        } 
       }
     }
     }
@@ -217,14 +212,12 @@ async function main(): Promise<void> {
         }
         const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
-        if (chatId) {
-          bot.sendPhoto(chatId,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
+          bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
             \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
 
-          })
-        } 
+          }) 
     }
     }
     res.sendStatus(200);
