@@ -234,7 +234,7 @@ async function main(): Promise<void> {
         }
         else{
               bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
-            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n\n${rewardText}\n
+            caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}${rewardText}\n
             \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})`,
             parse_mode: 'MarkdownV2'
           }) 
