@@ -150,7 +150,7 @@ async function main(): Promise<void> {
             dinoClass+="Archer"
             break;
           case dinoPFPNumber >= 2001 && dinoPFPNumber < 4000:
-            dinoClass+="Pirate"
+            dinoClass+="Pirate"     
             break;
           case dinoPFPNumber >= 4001 && dinoPFPNumber < 6000:
             dinoClass+="Thief"
@@ -220,14 +220,13 @@ async function main(): Promise<void> {
           reward = 0
           rewardText+= ""
         }
-        const decodedParameters = web3.eth.abi.decodeParameters(typesArray, logs[i].data); 
         let buyerData = `https://etherscan\\.io/tx/${logs[i].transaction.hash}`
         console.log(reward)
         console.log(reward==1)
         if(reward==1){
           bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n${rewardText}\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆
-            \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})\\|[Hatch](Dinolfgmint.com)`,
+            \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${logs[i].transaction.from.address})\\|[Hatch](Dinolfgmint.com)`,
             parse_mode: 'MarkdownV2'
 
           }) 
@@ -235,7 +234,7 @@ async function main(): Promise<void> {
         else{
               bot.sendPhoto(-1001883928989,`https://dinolfg.s3.us-east-2.amazonaws.com/resizedPFP/${dinoPFP}.webp`,{
             caption: `🔄🦖🥚🔄🦖🥚🔄🦖🥚🔄🦖🥚\n\n*Dino Mystery Egg ID:* \\#${dinoEgg}\n*DINOsaur ID:* \\#${dinoPFP}\n*DINOsaur Class:* ${dinoClass}\n
-            \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${decodedParameters.buyer})\\|[Hatch](Dinolfgmint.com)`,
+            \n[TX](${buyerData})\\|[Minter](https://etherscan\\.\\io/address/${logs[i].transaction.from.address})\\|[Hatch](Dinolfgmint.com)`,
             parse_mode: 'MarkdownV2'
           }) 
         }
