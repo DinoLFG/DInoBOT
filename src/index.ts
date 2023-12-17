@@ -128,6 +128,8 @@ async function main(): Promise<void> {
   
   let k500 = [3152]
 
+  let solanaPhone = [3333]
+
   let jackPot = [1501,9915,1930,3933,5832,7924,2803,8301,6473,2512]
 
 
@@ -159,7 +161,7 @@ async function main(): Promise<void> {
             dinoClass+="Warrior"
             break;
           case dinoPFPNumber >= 8001 && dinoPFPNumber <= 10000:
-            dinoClass+="Wizzard"
+            dinoClass+="Wizard"
             break;
           default:
             return "Invalid range: dinoPFP is not within any of the specified cases";
@@ -203,6 +205,10 @@ async function main(): Promise<void> {
         else if(iphone.includes(Number(dinoPFPNumber))){
           reward =1
           rewardText+= "*1x iPhone 14*"
+        }
+        else if(solanaPhone.includes(Number(dinoPFPNumber))){
+          reward =1
+          rewardText+= "*1x Solana Saga Phone*"
         }
         else if(doge.includes(Number(dinoPFPNumber))){
           reward =1
